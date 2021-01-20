@@ -37,10 +37,18 @@ var server = net.createServer(function (socket) {
     });
 
     //greet connected client
-    //socket.write(`Welcome client: ${clientId}`);
+    socket.write(`Welcome client: ${clientId}`);
+
+    //using timer to contineously send data to client.
+    setInterval(() => {
+        if(!socket.destroyed){
+            socket.write(`-> ${Date.now()}`)
+        }
+        
+    }, 2000);
 
     //pipe data sent by the client to client
-    //client.pipe(client);
+    //socket.pipe(socket);
 });
 
 //bind to port 8000 and start accepcting connections
