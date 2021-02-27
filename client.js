@@ -3,35 +3,18 @@ const net = require('net');
 
 // The port number and hostname of the server.
 const port = 502;
-const host = 'localhost';
+const host = '127.0.0.1'; //localhost
 
-// Create a new TCP client.
-const client = new net.Socket();
+//bytes Array
+var bytesArray = [0x4, 0xFF, 0x01, 0x20, 0x0];
+testBuff = new Buffer.from(bytesArray);
 
-// Send a connection request to the server.
-client.connect({ port: port, host: host }), function() {
-    // If there is no error, the server has accepted the request and created a new 
-    // socket dedicated to us.
-    console.log('TCP connection established with the server.');
-
-    // The client can now send data to the server by writing to its socket.
-    client.write('Hello, server.');
-};
+var client = net.connect({ host: host, port: port }, connected);
 
 
-// The client can also receive data from the server by reading from its socket.
-client.on('data', function(chunk) {
-    console.log(`Data received from the server: ${chunk.toString()}.`);
-    
-    // Request an end to the connection after the data has been received.
-    //client.end();
-});
+function connected() {
+    client.write(testBuff);
+  // do other things
+}
 
 
-client.on('end', function() {
-    console.log('Requested an end to the TCP connection');
-});
-
-client.on('error', function(err) {
-    console.error('error: ' + err);
-});

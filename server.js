@@ -37,15 +37,15 @@ var server = net.createServer(function (socket) {
     });
 
     //greet connected client
-    socket.write(`Welcome client: ${clientId}`);
+   // socket.write(`Welcome client: ${clientId}`);
 
     //using timer to contineously send data to client.
-    setInterval(() => {
-        if(!socket.destroyed){
-            socket.write(`-> ${Date.now()}`)
-        }
+    // setInterval(() => {
+    //     if(!socket.destroyed){
+    //         socket.write(`-> ${Date.now()}`)
+    //     }
         
-    }, 2000);
+    // }, 2000);
 
     //pipe data sent by the client to client
     //socket.pipe(socket);
